@@ -1,3 +1,0 @@
-"C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E rm -f CMakeFiles\NUMmodel_R.dir/objects.a
-C:\TDM-GCC-64\bin\ar.exe qc CMakeFiles\NUMmodel_R.dir/objects.a @CMakeFiles\NUMmodel_R.dir\objects1.rsp
-C:\TDM-GCC-64\bin\gfortran.exe -shared -o libNUMmodel_R.dll -Wl,--out-implib,libNUMmodel_R.dll.a -Wl,--major-image-version,0,--minor-image-version,0 -Wl,--whole-archive CMakeFiles\NUMmodel_R.dir/objects.a -Wl,--no-whole-archive 

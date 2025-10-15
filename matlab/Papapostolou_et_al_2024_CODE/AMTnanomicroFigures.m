@@ -1,4 +1,4 @@
-% 
+%
 % Produces figures that compare nano+microplankton biomass depth-integrated
 % between NUM model and AMT nano- and micro-plankton data
 % data from Rodríguez-Ramos et al., 2015
@@ -11,10 +11,10 @@
 %-------------------------------------------------
 %*************************************************
 function AMTnanomicroFigures(sim)
-load('processed_data/dataprotistsbiomass_corrected.mat')
+load('../../data/dataprotistsbiomass_corrected.mat')
 % load('C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Model EVALUATION\matrices2022\dataprotistsbiomass_corrected.mat');
 % biomass in gC/m^2
-simInt=calcIntegrateGlobal(sim,sim.B , false); % in gC/m^2
+%simInt=calcIntegrateGlobal(sim,sim.B , false); % in gC/m^2
 
 r=calcRadiusGroups(sim.p);
 ixr_nanomicro=find(r>=2 & r<=200);
@@ -38,13 +38,13 @@ B   = T(:,3); % Biomass of pico- and nano-plankton
 transect  = table2array(T(:,4));
 month_corrected=table2array(T(:,8));
 % converting tables to arrays
-lat_dat = table2array(x); 
+lat_dat = table2array(x);
 lon_dat = table2array(y);
 B_dat   = table2array(B);
 
 % indices for the different shapes/months in Serra-Pompei et al. (2022)
 romb     =  1:27;   % diamond/ AMT-12
-romb_may =  1:14;    % becaus first half of that cruise was in May  
+romb_may =  1:14;    % becaus first half of that cruise was in May
 cuadr    =  28:53;  % square/ AMT-14
 tri      =  54:77;  % triangle/ AMT-13
 tri_sep  = tri(10:24);
@@ -53,7 +53,7 @@ tri_sep  = tri(10:24);
 % tri_sep  = flip(tri_sep);
 lonWrapped = wrapTo180(sim.x); % convert longitude ordinates from [0,360[-->[-180,180]
 
-% Global simulation from NUMmodel 
+% Global simulation from NUMmodel
 % for may-june-october
 yrNo = sim.p.tEnd/365;
 may  = (yrNo-1)*12+5;
@@ -70,7 +70,7 @@ Bnano=calcIntegrateGlobal(sim,sim.B(:,:,:,:,rnano),false); % gC/m2
 % Bmicro=permute(Bmicro,[3 1 2]);
 % Bnano=permute(Bnano,[3,1,2]);
 
- 
+
 Bmicro_5  =  squeeze(Bmicro(may,:,:));
 Bmicro_6  =  squeeze(Bmicro(june,:,:));
 Bmicro_9  =  squeeze(Bmicro(sep,:,:));
@@ -97,14 +97,14 @@ Pbiom_model10=zeros(1,length(lat_dat));
 
 for i=1:length(lat_dat)
 
-     [ ~, idx_lonG] = min( abs( lonWrapped-lon_dat(i) ) );
+    [ ~, idx_lonG] = min( abs( lonWrapped-lon_dat(i) ) );
 
-     [ ~, idx_latG] = min( abs( sim.y-lat_dat(i) ) );
+    [ ~, idx_latG] = min( abs( sim.y-lat_dat(i) ) );
 
-     ix_lon(i)=idx_lonG;
-     ix_lat(i)=idx_latG;
+    ix_lon(i)=idx_lonG;
+    ix_lat(i)=idx_latG;
 
-% next step is to find combined coordinates
+    % next step is to find combined coordinates
     Pbiom_model6(i)=Bg_6avg(idx_lonG(1),idx_latG(1));
     Pbiom_model5(i)=Bg_5avg(idx_lonG(1),idx_latG(1));
     Pbiom_model10(i)=Bg_10avg(idx_lonG(1),idx_latG(1));
@@ -126,14 +126,14 @@ heightf=10; %figure height in cm
 
 fig=figure(9);
 set(fig,'Renderer','Painters','Units','centimeters',...
-'Position',[x0 y0 width heightf],...
-'PaperPositionMode','auto','Name','AMT nano-,micro-');
+    'Position',[x0 y0 width heightf],...
+    'PaperPositionMode','auto','Name','AMT nano-,micro-');
 clf()
 set(gcf,'color','w');
- 
+
 tiledlayout(1,4,"Padding","compact",TileSpacing="compact")
 nexttile(2)
-scatter(B_dat(romb),lat_dat(romb),25,'d','markerfacecolor',cmap(1,:),'markeredgecolor',cmap(1,:),MarkerFaceAlpha=.5)    
+scatter(B_dat(romb),lat_dat(romb),25,'d','markerfacecolor',cmap(1,:),'markeredgecolor',cmap(1,:),MarkerFaceAlpha=.5)
 hold on
 plot(Pbiom_model6(romb),sim.y(ix_lat(romb)),'LineWidth',2,'color',cmap(1,:))
 ylim([-65,65])
@@ -153,7 +153,7 @@ ylim([-65,65])
 
 xlabel("Biomass (g C m^{-2})")
 plotlabel('c',false);
-set(gca,'Yticklabel',[]) 
+set(gca,'Yticklabel',[])
 pbaspect([1 2.8 1])
 
 nexttile(4)
@@ -163,7 +163,7 @@ plot(Pbiom_model5(cuadr),sim.y(ix_lat(cuadr)),'LineWidth',2,'color',cmap(3,:))
 ylim([-65,65])
 
 % xlabel("Biomass (gCm^{-2})")
-set(gca,'Yticklabel',[]) 
+set(gca,'Yticklabel',[])
 pbaspect([1 2.8 1])
 plotlabel('d',false);
 

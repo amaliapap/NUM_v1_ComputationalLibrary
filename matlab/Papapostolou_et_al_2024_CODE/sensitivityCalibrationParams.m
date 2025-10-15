@@ -4,22 +4,24 @@
 
 %
 
-function sensitivityCalibrationParams(showFigsOnly)
+function sensitivityCalibrationParams(sim,showFigsOnly)
 
-if showFigsOnly==true
-    load('data_for_sensitivity_figure.mat')
-end
 n = 8;
+NPPexpected = [200 1000 500];
 
-mortHTL = linspace(0.0,0.01,n);
+mortHTL = linspace(0.0,0.03,n);
 kw = linspace(0.01,0.15,n);
 u = linspace(5,25,n);
 
-if showFigsOnly==false
+if showFigsOnly==true
+    load('data_for_sensitivity_figure.mat')
+else
     figure(1)
-    [objHTL, errHTL] = varyHTL( mortHTL );
-    [objkw, errkw] = varykw( kw );
-    [obju, erru] = varyu( u );
+    %load('data_for_sensitivity_figure.mat')
+    [objHTL, errHTL] = varyHTL( sim,mortHTL );
+    [objkw, errkw] = varykw( sim,kw );
+    [obju, erru] = varyu( sim,u );
+    save('data_for_sensitivity_figure.mat','objHTL','objkw','obju','errHTL','erru','errkw');
 end
 %%
 
@@ -50,7 +52,9 @@ for i=1:3
     hold on
 end
 plot(mortHTL,0*mortHTL,'k--')
-ylim([-1.5 2])
+plot(0.017*[1,1],[-2 2],'k:')
+ylim([-2 2])
+set(gca,'XTickLabel','')
 leg1=legend({'Pico','POC','Copepods'});
 leg1.ItemTokenSize(1)=10;
 axis square
@@ -58,15 +62,17 @@ plotlabel('a',false);
 
 nexttile(2)
 for i=1:3
-    plot(mortHTL,objHTL(:,i+3),'Color',ccmap(i,:),'linewidth',2)
+    plot(mortHTL,exp(objHTL(:,i+3))*NPPexpected(i),'Color',ccmap(i,:),'linewidth',2)
     hold on
 end
+plot(0.017*[1,1],[0 2000],'k:')
 ylabel('NPP (mg C m^{-2}day^{-1})')
-xlabel('\mu_{HTL,0} (L \mug C^{-3/4}day^{-1})')
-leg2=legend({'Eutrophic','Oligotrophic','Seasonal'});
+xlabel('\mu_{HTL,0} (L \mug C^{-1}day^{-1})')
+leg2=legend({'Oligotrophic','Eutrophic','Seasonal'});
 leg2.ItemTokenSize(1)=10;
 plotlabel('d',false);
 ylim([0 2000])
+%set(gca,'YTickLabel','')
 axis square
 
 % kw:
@@ -78,15 +84,20 @@ for i=1:3
 end
 plot(kw,0*kw,'k--')
 xlim([min(kw) max(kw)])
-ylim([-1.5 2])
+ylim([-2 2])
+set(gca,'XTickLabel','')
 axis square
 plotlabel('b',false);
+set(gca,'YTickLabel','')
+plot(sim.p.kw*[1,1],[-2 2],'k:')
 
 nexttile(4)
 for i=1:3
-    plot(kw,objkw(:,i+3),'Color',ccmap(i,:),'linewidth',2)
+    plot(kw,exp(objkw(:,i+3))*NPPexpected(i),'Color',ccmap(i,:),'linewidth',2)
     hold on
 end
+plot(sim.p.kw*[1,1],[0 2000],'k:')
+set(gca,'YTickLabel','')
 
 xlabel('k_w (m^{-1})')
 xlim([min(kw) max(kw)])
@@ -102,16 +113,21 @@ for i=1:3
     hold on
 end
 plot(u,0*u,'k--')
-ylim([-1.5 2])
+ylim([-2 2])
+set(gca,'XTickLabel','')
 xlim([min(u) max(u)])
 axis square
 plotlabel('c',false);
+set(gca,'YTickLabel','')
+plot(19*[1,1],[-2 2],'k:')
 
 nexttile(6)
 for i=1:3
-    plot(u,obju(:,i+3),'Color',ccmap(i,:),'linewidth',2)
+    plot(u,exp(obju(:,i+3))*NPPexpected(i),'Color',ccmap(i,:),'linewidth',2)
     hold on
 end
+plot(19*[1,1],[0 2000],'k:')
+set(gca,'YTickLabel','')
 xlabel('Sinking velocity (m day^{-1})')
 axis tight
 ylim([0 2000])
@@ -119,14 +135,13 @@ axis square
 plotlabel('f',false);
 
 %%
-    function [obj,err] = varyHTL(mortHTL)
+    function [obj,err] = varyHTL(sim,mortHTL)
 
-        objExpected = [1 1 1 800 200 1000]; % Pico, POC, copepods; NPP , eutrophic oligotrophic and seasonal
-        load NUMmodel.mat
+        objExpected = [1 1 1 ,NPPexpected]; % Pico, POC, copepods; NPP , eutrophic oligotrophic and seasonal
 
         p = setupNUMmodel(bParallel= true); % A fast version of the NUM setup
         p = parametersGlobal(p,1);
-        mHTL = .1;
+        mHTL = 1;
         bHTLdecline = false;
         bHTLquadratic = true;
         simHTL = {};
@@ -134,7 +149,7 @@ plotlabel('f',false);
 
         for i = 1:length(mortHTL)
             mortHTL(i)
-            setHTL(mortHTL(i), mHTL, bHTLquadratic, bHTLdecline);
+            setHTL(mortHTL(i), mHTL, bHTLquadratic, bHTLdecline, true);
             simHTL{i} = simulateGlobal(p,sim,bCalcAnnualAverages=true, bVerbose=false);
             obj(i,:) = EvaluateRun(simHTL{i});
             err(i) = double(mean(abs(log(obj(i,:) ./ objExpected))));
@@ -143,10 +158,9 @@ plotlabel('f',false);
         end
     end
 
-    function [obj,err] = varykw(kw)
+    function [obj,err] = varykw(sim,kw)
 
-        objExpected = [1 1 1 800 200 1000]; % Pico, POC, copepods; NPP , eutrophic oligotrophic and seasonal
-        load NUMmodel.mat
+        objExpected = [1 1 1 ,NPPexpected]; % Pico, POC, copepods; NPP , eutrophic oligotrophic and seasonal
 
         p = setupNUMmodel(bParallel= true); % A fast version of the NUM setup
         p = parametersGlobal(p,1);
@@ -164,9 +178,8 @@ plotlabel('f',false);
         end
     end
 
-    function [obj,err] = varyu(u)
-        objExpected = [1 1 1 800 200 1000]; % Pico, POC, copepods; NPP , eutrophic oligotrophic and seasonal
-        load NUMmodel.mat
+    function [obj,err] = varyu(sim,u)
+        objExpected = [1 1 1 ,NPPexpected]; % Pico, POC, copepods; NPP , eutrophic oligotrophic and seasonal
         p = setupNUMmodel(bParallel= true); % A fast version of the NUM setup
         p = parametersGlobal(p,1);
         sim_u = {};

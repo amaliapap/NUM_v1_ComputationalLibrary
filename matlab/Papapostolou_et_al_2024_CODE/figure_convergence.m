@@ -1,14 +1,14 @@
 p = setupNUMmodel(bParallel=true);
 p = parametersGlobal(p);
 p.tEnd = 20*365;
-% sim = simulateGlobal(p,bCalcAnnualAverages=true);
+sim = simulateGlobal(p,bCalcAnnualAverages=true);
 %%
 x0=1;
 y0=2;
 height=10;  
 width=16;
-fig no=l;
-fig=figure(fig no);
+
+fig=figure();
 set(fig,'Renderer','Painters','Units','centimeters',...
 'Position',[x0 y0 width height],...
 'PaperPositionMode','auto','Name','Convergence');

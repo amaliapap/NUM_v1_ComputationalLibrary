@@ -11,8 +11,8 @@
 %    depth - depth layer (-1 by default)
 %
 % Out :
-% %   Rates - jLreal, jFreal, jDOC, jN,jSi,jTot,f, jMax,jR 
-%           jRespTot, jLossPassive, mortpred, mortHTL, mort2, mort 
+% %   Rates - jLreal, jFreal, jDOC, jN,jSi,jTot,f, jMax,jR
+%           jRespTot, jLossPassive, mortpred, mortHTL, mort2, mort
 %
 
 function Rates = calcAllRatesAvg(sim,tDay,depth)
@@ -23,8 +23,8 @@ arguments
     depth double = 1;
 end
 
-    tStep=length(sim.t)/sim.p.tEnd;
-    % tStep=1;
+tStep=length(sim.t)/sim.p.tEnd;
+% tStep=1;
 if tDay<0
     %Average over the last month
     if sim.t(end)<30 %if the simulation lasted less than one month then the average is done over all the simulation
@@ -128,7 +128,7 @@ for i = 1:length(time)
                 mort2(i,iDepth,:) = rates.mort2;
                 mort(i,iDepth,:) = rates.mort;
             end
-    
+
         case 'global'
             for ixX = 1:length(sim.x)
                 for ixY = 1:length(sim.y)

@@ -1,3 +1,6 @@
+
+
+
 %
 % Makes a panel of the various contributions to respiration for a group
 % with beta-factors (generalists or diatoms).
@@ -24,10 +27,9 @@ basal=fillbetweenlines(m, 0*jR, jR, ccmap2(1,:));
 hold on
 
 ymax = max(rates.jR);
-thisDir=pwd;
+
 switch p.nameGroup{iGroup}
     case 'Generalists'
-cd('C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Documents\GitHub\NUMmodel\matlab')
 
         % Find beta parameters from the input file:
         betaL = search_namelist('../input/input.h', p.nameGroup{iGroup}, 'bL');
@@ -62,8 +64,7 @@ cd('C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Documents\GitHub\NUM
         end
 
     case 'Diatoms'
-        cd('C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Documents\GitHub\NUMmodel\matlab')
-
+ 
         % Find beta parameters from the input file:
         betaL = search_namelist('../input/input.h', p.nameGroup{iGroup}, 'bL');
         betaN = search_namelist('../input/input.h', p.nameGroup{iGroup}, 'bN');
@@ -101,7 +102,6 @@ cd('C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Documents\GitHub\NUM
         end
 
 end
-cd(thisDir) % Ensure it returns to the directory with the plotting script
 
 title(append('Respiration of ',lower(p.nameGroup{iGroup})),"FontWeight","normal")
 %semilogx(m, rates.jTot,'k-','linewidth',2);

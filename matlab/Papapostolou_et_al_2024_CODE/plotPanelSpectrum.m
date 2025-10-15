@@ -135,7 +135,7 @@ hold off
 xticks=[10^-8 10^-7 10^-6 10^-5 10^-4 10^-3 10^-2 10^-1 1 10];
 
 xlabel('Mass ({\mu}g C)')
-ylabel('Biomass ({\mu}g C l^{-1})')% Sheldon biomass
+ylabel('Biomass ({\mu}g_C l^{-1})')% Sheldon biomass
 %legendentries=[dum,legendentries];
 %sLegend=[captionedstrat,sLegend];
 if showLeg==true

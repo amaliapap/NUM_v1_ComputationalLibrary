@@ -9,8 +9,8 @@
 % OUTPUT: transect plots
 %
 function PicophytoFiguresAtlantic(sim,r)
-load('processed_data/poco_cpf_db_v2.mat')
-load('processed_data/pico_insitudata.mat')
+load('../../data/poco_cpf_db_v2.mat')
+load('../../data/pico_insitudata.mat')
 
 %%
 % convert data variables to vectors 
@@ -181,6 +181,9 @@ clim([-60,60])
 c.Label.String = "[mg m^{-3}]";
 c.Label.FontSize=10;
 title('$\Delta$(Model-\textit{in situ})',FontSize=10,FontWeight='normal',Interpreter='latex')
-colormap(whitejet);                                               
+cmap=flip(cmocean('deep',10));
+ccmap=cmap(2:end,:);      
+
+colormap(ccmap); %(whitejet);                                               
 
 sgtitle('Picoplankton biomass',fontsize=12);

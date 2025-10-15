@@ -114,8 +114,8 @@ status = [fitPico, fitPopcorn, fitCopepods, NPPEutro, NPPOligo, NPPSeasonal];
     end
 
   function fit = PicophytoFiguresAtlantic(sim,r)
-        load('processed_data/poco_cpf_db_v2.mat','pococpfdbv2')  % load picophytoplankton data table
-        load('processed_data/pico_insitudata.mat','insitudata')  % load data with reduced columns
+        load('../../data/poco_cpf_db_v2.mat','pococpfdbv2')  % load picophytoplankton data table
+        load('../../data/pico_insitudata.mat','insitudata')  % load data with reduced columns
 
         % convert data variables to vectors
         datapoco=pococpfdbv2;
@@ -272,7 +272,7 @@ status = [fitPico, fitPopcorn, fitCopepods, NPPEutro, NPPOligo, NPPSeasonal];
     function fit = GOPOPCORNfigures(sim,r)
 
 
-        load('processed_data/dataGOPOPCORNver2.mat', 'dataGOPOPCORNver2')
+        load('../../data/dataGOPOPCORNver2.mat', 'dataGOPOPCORNver2')
         %%
         % sim=simFun1;
 

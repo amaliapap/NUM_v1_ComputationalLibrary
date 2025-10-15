@@ -27,7 +27,7 @@
 % Arctic cruises are not included
 function GOPOPCORNfigures(sim,r)
 
-load('processed_data/dataGOPOPCORNver2.mat')
+load('../../data/dataGOPOPCORNver2.mat')
 %%
 % sim=simFun1;
 

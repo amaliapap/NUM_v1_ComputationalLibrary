@@ -65,8 +65,8 @@ colGroupFamilies={cmapG(i+1,:), cmapD(i+1,:), cmapPC(i+1,:), cmapPC(i+1,:), cmap
         drawnow
         ylim([1 1000])
         xlim([1e-8 2e4])
-        %xlabel('Size ({\mu}g_C)')
-        %ylabel('Mean Sheldon biomass ({\mu}g_C/m^2)')
+        %xlabel('Size ({\mu}g C )')
+        %ylabel('Mean Sheldon biomass ({\mu}g C /m^2)')
     end
 end
 ylim([10 1000])
@@ -125,7 +125,7 @@ for i = 1:length(n)
         drawnow
         ylim([1 1000])
         xlim([1e-8 2e4])
-        %xlabel('Size ({\mu}g_C)')
+        %xlabel('Size ({\mu}g C )')
         ylabel('Mean Sheldon biomass ({\mu}g C m^{-2})')
     end
 end
@@ -206,7 +206,7 @@ for i = 1:length(n)
         ylim([1 1000])
         xlim([1e-8 2e4])
         xlabel('Size ({\mu}g C)')
-        %ylabel('Mean Sheldon biomass ({\mu}g_C/m^2)')
+        %ylabel('Mean Sheldon biomass ({\mu}g C /m^2)')
     end
 end
 ylim([10 1000])

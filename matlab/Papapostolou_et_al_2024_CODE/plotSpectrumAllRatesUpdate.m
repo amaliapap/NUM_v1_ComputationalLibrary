@@ -12,25 +12,20 @@ arguments
     % lat double = [];
     % lon double = [];
 end
-path_to_NUMmodel = 'C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Documents\GitHub\NUMmodel\matlab';
 
 % itime=3400; iDepth=4;
 % sim=simC;
 p=sim.p;
 time=3400; %/3500 for July
-thisDir=pwd;
 % m =[sim.p.mLower(3:end), sim.p.mLower(end)+sim.p.mDelta(end)];
 % [~, iTime] = min(abs(sim.t-time));
  iDepth=1;  
 % sim = simC;
-cd(path_to_NUMmodel)
 Rates = calcAllRatesAvg(sim,time,iDepth);
 rates = Rates;
 time=3500; % for July
 [~, iTime] = min(abs(sim.t-time));
 ratesSummer = calcAllRatesAvg(sim,time);
-% cd 'C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Documents\GitHub\NUMmodel\matlab\Code for FIGURES'
-cd(thisDir)
 
 %% FIGURES
 %
@@ -60,8 +55,6 @@ a.Rotation=90;
 a.Position=[0.087603305785124,0.508994710045932,0.168595036790391,0.052910051858825];
 %% figure
 
-% cd('C:\Users\ampap\OneDrive - Danmarks Tekniske Universitet\Documents\GitHub\NUMmodel\matlab\Code for FIGURES')
-cd(thisDir)
 
 x0=0; %positions (no need to change)
 y0=0;
