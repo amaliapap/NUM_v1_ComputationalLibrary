@@ -43,6 +43,7 @@ end
 %
 if bRunmodel | ~exist('NUMmodel.mat')
     load('NUMinit.mat');
+    sim = siminit;
     p = setupNUMmodel(bParallel=true);
     p = parametersGlobal(p);
     p.tEnd = 365;
