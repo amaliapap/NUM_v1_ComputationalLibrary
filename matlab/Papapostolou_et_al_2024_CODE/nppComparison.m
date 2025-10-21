@@ -22,13 +22,13 @@ x0=0; %positions (no need to change)
 y0=0;
 width=16; %figure width in cm
 heightf=14; %figure height in cm
-fig=figure('Renderer','Painters','Units','centimeters',...
+set(gcf,'Renderer','Painters','Units','centimeters',...
     'Position',[x0 y0 width heightf-3],...
     'PaperPositionMode','auto');
 
 set(gcf,'color','w');
 %tiledlayout(3,2,'TileSpacing','compact','Padding','compact');
-tiledlayout(4,4,'TileSpacing','tight',Padding='compact');
+tiledlayout(3,2,'TileSpacing','tight',Padding='compact');
 % tiles.InnerPosition = [0.13,0.11,0.65,0.8150]; % Make space for colorbars
 t1=nexttile(1);
 cbar = panelGlobal(sim.x,sim.y,(sim.ProdNetAnnual),[0,1000],...
