@@ -44,7 +44,7 @@ y0=0;
 width=16; %figure width in cm
 heightf=10; %figure height in cm
 
-fig=figure(12);
+fig=figure(11);
 set(fig,'Renderer','Painters','Units','centimeters',...
     'Position',[x0 y0 width heightf],...
     'PaperPositionMode','auto','Name','WOAxNUM_N_Si');
