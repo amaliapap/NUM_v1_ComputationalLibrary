@@ -48,6 +48,7 @@ xlabel('')
 ylim(ylimSpectrum)
 legend('')
 plotlabel('b',false);
+text(5000, .8,"Global simulation", 'Rotation',-90,'color',[0,0,0],'HorizontalAlignment','center','FontWeight','bold')
 
 %% -------------------------
 %  Watercolumn simulation
@@ -94,6 +95,8 @@ ylim(ylimSpectrum)
 xlabel('')
 legend('')
 plotlabel('d',false);
+text(5000, .8,"Watercolumn simulation", 'Rotation',-90,'color',[0,0,0],'HorizontalAlignment','center','FontWeight','bold')
+
 
 %% --------------------------
 %  Chemostat simulation
@@ -117,6 +120,8 @@ plotPanelSpectrum(simC,iTime,1,lat,lon)
 ylim(ylimSpectrum)
 xlabel('Mass (\mug C)')
 plotlabel('e',false);
+text(5000, .8,"Chemostat simulation", 'Rotation',-90,'color',[0,0,0],'HorizontalAlignment','center','FontWeight','bold')
+
 
 ax=gca;
 ax.XTick=[10^-8 10^-6 10^-4 10^-2 1 100];
@@ -131,6 +136,7 @@ cbar.Position(4)=.03;
 cbar.Position(3)=.22;
 
 delete(t5);
+
 
 
     function plotWC(B,sim,z)
