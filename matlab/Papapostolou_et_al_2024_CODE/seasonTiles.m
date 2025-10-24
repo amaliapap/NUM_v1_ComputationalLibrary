@@ -67,7 +67,7 @@ set(gca,'Box','off')
 %
 iGroup=2;
 ixd = (p.ixStart(iGroup):p.ixEnd(iGroup))-p.idxB+1;
-md = p.m(ix+p.idxB-1);
+md = p.m(ixd);
 sLinetype = ":"; % For LOSSES
 %
 t2=nexttile([2 1]);
@@ -78,14 +78,14 @@ cjN=semilogx(md, ratesSummer.jN(ixd),'b','linewidth',1.5);
 cjSi=semilogx(md, ratesSummer.jSi(ixd), 'color',cmap{4}, 'linewidth',1.5, 'linestyle','-.');
 semilogx(md, ratesSummer.jLreal(ixd), 'color',cmap{2},'linewidth',2)
 % semilogx(m, ratesSummer.jMax(ixd), 'k:')
-cjPred=semilogx(m, -ratesSummer.mortpred(ixd), 'color',cmap{3},'linewidth',1.5, 'linestyle',sLinetype);
+cjPred=semilogx(md, -ratesSummer.mortpred(ixd), 'color',cmap{3},'linewidth',1.5, 'linestyle',sLinetype);
 %semilogx(m, ratesSummer.jR(ixd), 'k-.', 'linewidth',1.5)
-cjRes=semilogx(m, -ratesSummer.jRespTot(ixd), 'k', 'linewidth',1.5, 'linestyle',sLinetype);
-cjVL=semilogx(m, -ratesSummer.mort2(ixd), 'b','linewidth',1.5, 'linestyle','-');
-cjPL=semilogx(m, -ratesSummer.jLossPassive(ixd), 'color',[0 0.5 0],'linewidth',1.5, 'linestyle',sLinetype);
+cjRes=semilogx(md, -ratesSummer.jRespTot(ixd), 'k', 'linewidth',1.5, 'linestyle',sLinetype);
+cjVL=semilogx(md, -ratesSummer.mort2(ixd), 'b','linewidth',1.5, 'linestyle','-');
+cjPL=semilogx(md, -ratesSummer.jLossPassive(ixd), 'color',[0 0.5 0],'linewidth',1.5, 'linestyle',sLinetype);
 %    loglog(m, ratesSummer.mortStarve(ixd), 'b-o','linewidth',1.5)
-cjHTL=loglog(m, -ratesSummer.mortHTL(ixd), 'color',cmap{4},'linewidth',1.5,'LineStyle','-');
-cLosstot=loglog(m, -ratesSummer.mortHTL(ixd)-ratesSummer.mortpred(ixd) -ratesSummer.jRespTot(ixd)-ratesSummer.mort2(ixd)-ratesSummer.jLossPassive(ixd),...
+cjHTL=loglog(md, -ratesSummer.mortHTL(ixd), 'color',cmap{4},'linewidth',1.5,'LineStyle','-');
+cLosstot=loglog(md, -ratesSummer.mortHTL(ixd)-ratesSummer.mortpred(ixd) -ratesSummer.jRespTot(ixd)-ratesSummer.mort2(ixd)-ratesSummer.jLossPassive(ixd),...
     'color',[ 93, 109, 126, .9*250]/250,'linewidth',3);
 cjHTL.Marker="o";
 cjHTL.MarkerSize=1.7;
