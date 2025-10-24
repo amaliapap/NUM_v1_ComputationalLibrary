@@ -42,7 +42,7 @@ set(fig,'Renderer','Painters','Units','centimeters',...
 clf
 set(gcf,'color','w');
 set(groot,'defaultAxesFontSize',10)
-tiledlayout(9,2,'tilespacing','compact','padding','loose','TileIndexing', 'columnmajor')
+tiledlayout(9,2,'tilespacing','tight','padding','loose','TileIndexing', 'columnmajor')
 lettersStr={'a','b','c','c','d','d','d'};
 seasonTiles(rates,p,lettersStr,'off')
 lettersStr={'e','f','g','g','h','h','h'};

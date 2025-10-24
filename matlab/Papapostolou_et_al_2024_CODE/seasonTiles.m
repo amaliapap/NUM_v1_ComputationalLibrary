@@ -52,13 +52,14 @@ if ((p.typeGroups(iGroup)~=3) && (p.typeGroups(iGroup)~=4))
     cjVL.Marker="o";
     cjVL.MarkerSize=1.7;
     zeroLine=plot(tline,0*tline,'k:','LineWidth',.5);
-    tt(iGroup)=title(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}),'FontWeight','normal',FontSize=10);
-
+    %tt(iGroup)=title(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}),'FontWeight','normal',FontSize=10);
+    plotlabel(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}), false)
+    xticks([10^-8 10^-7 10^-6 10^-5 10^-4 10^-3 10^-2 10^-1 1 10 100 1000]);
 end
 hold off
 axis tight
 xlim(calcXlim(p))
-ylim([-ymin_U*1.5 ymax_U*1.5])
+ylim([-ymin_U*1.5 ymax_U*3])
 set(gca,'XTickLabel','')
 set(gca,'Box','off')
 %
@@ -91,12 +92,13 @@ cjHTL.MarkerSize=1.7;
 cjVL.Marker="o";
 cjVL.MarkerSize=1.7;
 zeroLine=plot(tline,0*tline,'k:','LineWidth',.5);
-tt(iGroup)=title(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}),'FontWeight','normal',FontSize=10);
-
+%tt(iGroup)=title(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}),'FontWeight','normal',FontSize=10);
+plotlabel(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}), false)
+xticks([10^-8 10^-7 10^-6 10^-5 10^-4 10^-3 10^-2 10^-1 1 10 100 1000]);
 hold off
 axis tight
 xlim(calcXlim(p))
-ylim([-ymin_U*1.5 ymax_U*1.5])
+ylim([-ymin_U*1.5 ymax_U*3])
 set(gca,'XTickLabel','')
 set(gca,'Box','off')
 %
@@ -130,7 +132,8 @@ for iGroup = 3:p.nGroups-1
     cjHTL.Marker="o";
     cjHTL.MarkerSize=1.7;
     zeroLine=plot(tline,0*tline,'k:','LineWidth',.5);
-    tt(i)=title(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}(1:15)),'FontWeight','normal',FontSize=10);
+    %tt(i)=title(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}(1:15)),'FontWeight','normal',FontSize=10);
+    plotlabel(append(lettersStr(iGroup),'. ',p.nameGroup{iGroup}(1:15)), false)
 
     xlim(calcXlim(p))
     set(gca,'XTickLabel','')
@@ -138,6 +141,7 @@ for iGroup = 3:p.nGroups-1
     ylim([-ymin_C ymax_C])
     yticks([0 ymax_C/2 ymax_C])
     yticklabels({0,num2str(ymax_C/2),num2str(ymax_C)})
+    xticks([10^-8 10^-7 10^-6 10^-5 10^-4 10^-3 10^-2 10^-1 1 10 100 1000]);
     if p.typeGroups(iGroup+1)==10 && (p.typeGroups(iGroup)==11)
         t4=nexttile([2 1]);
         % tt=title(append(lettersStr(iGroup),'. ','Active copepods'),'FontWeight','normal');
