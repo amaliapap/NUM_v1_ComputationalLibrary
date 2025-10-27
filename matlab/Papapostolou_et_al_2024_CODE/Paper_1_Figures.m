@@ -157,8 +157,10 @@ figure(7)
 exportgraphics(gcf,'picoPhytoplankton_transects.pdf')
 
 %%
-plotWatercolumnTime(sim, lat, lon, depthMax=300) % or simWC
-exportgraphics(gcf,'WC_upwelling.pdf')
+plotWatercolumnTime(sim, lat, lon, depthMax=200) % or simWC
+annotation('textbox', [0.1, 0.5, 0.5, 0.04], 'String', 'Depth (m)', 'FontSize', 12,'rotation',90,...
+    'edgecolor','none');
+exportgraphics(gcf,'watercolumn.pdf')
 
 %%
 plotDiatom_vulnerability(sim)
