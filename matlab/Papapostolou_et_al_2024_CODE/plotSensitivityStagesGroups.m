@@ -1,7 +1,7 @@
 % addpath('~/Documents/Source/NUMmodel/matlab')
 %
 function plotSensitivityStagesGroups
-
+%%
 n = [6 10 15 20];
 yLimit = [10 10000];
 yLimitRight = [0.5 2];
@@ -32,7 +32,7 @@ set(fig,'Renderer','Painters','Units','centimeters',...
     'Position',[0 0 width height],...
     'PaperPositionMode','auto','Name','Sensitivity stages & no. groups')
 %tiledlayout(3,4,'TileSpacing','tight',Padding='compact');
-tiledlayout(4,4,'TileSpacing','tight',Padding='compact');  
+tiledlayout(5,4,'TileSpacing','tight',Padding='compact');  
 
 set(gcf,"Color",'w')
 set(groot,'defaultAxesFontSize',10)
@@ -43,7 +43,12 @@ nCPass =2;
 %
 % Seasonal watercolumn number of unicellular groups:
 %
+nexttile([1,4]);
+set(gca,'XColor','w','YColor','w')
+
 nexttile([1,3]);
+set(gca,'XColor','k','YColor','k')
+
 
 n = [6 10 15 20]; % number of unicellular groups
 
@@ -80,6 +85,67 @@ ylim(yLimit)
 plotlabel('a',false);
 
 
+%% Create a second axes on top
+
+mainAx = gca;
+pos = get(mainAx, 'Position');
+%%
+% Create a second axes for the generalists:
+floatAx = axes('Position', [pos(1), pos(2) + pos(4) + 0.0, pos(3), 0.01], ...
+               'Color', 'none', ...
+               'XAxisLocation', 'top', ...
+               'YAxisLocation', 'right', ...
+               'YTick', [], ...
+               'Xtick',[], ...
+               'Box', 'off', ...
+               'XColor','b');
+
+% Set the same x-limits
+xlim(floatAx, xlim(mainAx));
+set(floatAx,'xscale','log')
+rho = 0.4*1e6*1e-12; % mug/cm3 (Andersen et al 2016; rho = m/V = 0.3*d^3/(4/3*pi*(d/2)^3) )
+set(floatAx, 'XTick',([1,10,100].^3./(3/(4*pi)/rho)))
+set(floatAx, 'XTickLabel', {'1 {\mu}m','10 {\mu}m','100 {\mu}m'})
+set(floatAx,'XMinorTick','off')
+
+% Create a second axes for the diatoms:
+floatAx = axes('Position', [pos(1), pos(2) + pos(4) + 0.05, pos(3), 0.01], ...
+               'Color', 'none', ...
+               'XAxisLocation', 'top', ...
+               'YAxisLocation', 'right', ...
+               'YTick', [], ...
+               'Xtick',[], ...
+               'Box', 'off', ...
+               'XColor',[0 0.7 0]);
+
+% Set the same x-limits
+xlim(floatAx, xlim(mainAx));
+set(floatAx,'xscale','log')
+set(floatAx, 'XTick',([1,10].^3./(3/(4*pi)/rho/0.4)))
+set(floatAx, 'XTickLabel', {'1 {\mu}m','10 {\mu}m','100 {\mu}m'})
+set(floatAx,'XMinorTick','off')
+
+
+
+% Create a third axes for the copepods:
+floatAx = axes('Position', [pos(1), pos(2) + pos(4) + 0.1, pos(3), 0.01], ...
+               'Color', 'none', ...
+               'XAxisLocation', 'top', ...
+               'YAxisLocation', 'right', ...
+               'YTick', [], ...
+               'Xtick',[], ...
+               'Box', 'off', ...
+               'XColor',[0.7 0 0]);
+
+% Set the same x-limits
+xlim(floatAx, xlim(mainAx));
+set(floatAx,'xscale','log')
+set(floatAx, 'XTick',([100 1000 10000].^2.74 * 2.62e-8))
+set(floatAx, 'XTickLabel', {'100 {\mu}m','1000 {\mu}m','10000 {\mu}m'})
+set(floatAx,'XMinorTick','off')
+
+axes(mainAx)
+
 nexttile
 ax=gca;
 set(gca,'YTickLabel',[])
@@ -89,6 +155,7 @@ hold on
 plot(n,Btot/Btot(2),'Color',cmapPC(3,:),'linewidth',2,LineStyle='-')
 plot( n,NPP/NPP(2),'Color',cmap(4,:),'linewidth',2,LineStyle='-')
 plot(n,ProdHTL/ProdHTL(2),'Color',cmap(2,:),'linewidth',2,LineStyle='-')
+
 
 set(gca,'yscale','log')
 ax=gca;

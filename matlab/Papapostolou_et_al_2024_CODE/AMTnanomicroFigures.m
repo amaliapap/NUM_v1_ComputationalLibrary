@@ -143,7 +143,7 @@ ylabel('Latitude')
 % xlabel("biomass (gC/m^2)")
 % title("b.",'FontWeight','normal')%AMT 12:May-June
 pbaspect([1 2.8 1])
-plotlabel('b',false);
+plotlabel('b: AMT early summer',false);
 
 nexttile(3)
 scatter(B_dat(tri),lat_dat(tri),25,"^",'markerfacecolor',cmap(2,:),'markeredgecolor',cmap(2,:),MarkerFaceAlpha=.5)
@@ -152,7 +152,7 @@ plot(Pbiom_modelAMT13,sim.y(ix_lat(tri)),'LineWidth',2,'color',cmap(2,:))
 ylim([-65,65])
 
 xlabel("Biomass (g C m^{-2})")
-plotlabel('c',false);
+plotlabel('c: fall',false);
 set(gca,'Yticklabel',[])
 pbaspect([1 2.8 1])
 
@@ -165,7 +165,7 @@ ylim([-65,65])
 % xlabel("Biomass (gCm^{-2})")
 set(gca,'Yticklabel',[])
 pbaspect([1 2.8 1])
-plotlabel('d',false);
+plotlabel('d: spring',false);
 
 
 %---------------------
