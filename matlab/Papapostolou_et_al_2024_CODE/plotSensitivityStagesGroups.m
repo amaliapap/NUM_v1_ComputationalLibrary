@@ -121,7 +121,7 @@ floatAx = axes('Position', [pos(1), pos(2) + pos(4) + 0.05, pos(3), 0.01], ...
 % Set the same x-limits
 xlim(floatAx, xlim(mainAx));
 set(floatAx,'xscale','log')
-set(floatAx, 'XTick',([1,10].^3./(3/(4*pi)/rho/0.4)))
+set(floatAx, 'XTick',([1,10].^3./(3/(4*pi)/rho/0.2)))
 set(floatAx, 'XTickLabel', {'1 {\mu}m','10 {\mu}m','100 {\mu}m'})
 set(floatAx,'XMinorTick','off')
 

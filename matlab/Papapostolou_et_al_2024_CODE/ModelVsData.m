@@ -64,7 +64,7 @@ status = [fitPico, fitPopcorn, fitCopepods, NPPEutro, NPPOligo, NPPSeasonal];
         ixTime = sim.t>max(sim.t)-365;
         NPP = mean(spatialaverage(ix,sim.ProdNetAnnual(1,:,:)));
         fprintf('Prod net %5.0f mg C/m2/day\n', NPP);
-        r = calcRadius(sim.p.m(sim.p.idxB:end));
+        %r = calcRadius(sim.p.m(sim.p.idxB:end));
     end
 
     function phi = spatialaverage(ix,field)
@@ -111,6 +111,12 @@ status = [fitPico, fitPopcorn, fitCopepods, NPPEutro, NPPOligo, NPPSeasonal];
                 r(ix)= ( m(ix)/(0.73*0.48*exp(-16.41))^(1/2.74) )/2;
             end
         end
+    end
+
+    function R2 = calcR2(y_actual,y_predicted)
+        SS_res = sum((y_actual - y_predicted).^2);
+        SS_tot = sum((y_actual - mean(y_actual)).^2);
+        R2 = 1 - (SS_res / SS_tot);
     end
 
   function fit = PicophytoFiguresAtlantic(sim,r)
@@ -196,6 +202,11 @@ status = [fitPico, fitPopcorn, fitCopepods, NPPEutro, NPPOligo, NPPSeasonal];
         fit = (Picobiom_model(ix) ./ insitu(ix));
         fit = mean( log(fit(~isinf(fit))));
         meanBias = log(mean(Picobiom_model(ix)) ./ mean(insitu(ix)));  
+
+        R2 = calcR2(log10(insitu(ix)), log10(Picobiom_model(ix)));
+        fprintf('%f\n', R2)
+
+
         p=75;
 
         % Text with the mean bias

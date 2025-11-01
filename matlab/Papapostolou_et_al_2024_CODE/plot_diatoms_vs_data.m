@@ -69,7 +69,7 @@ tiledlayout(3,1,"TileSpacing","tight")
 %setFigHeight(12)
 
 if show_data
-    tile = nexttile
+    tile = nexttile;
     panelGlobal(sim.x, sim.y, ratioI, [0 1],sProjection='mollweid',sUnits='');
     plotlabel('a',false);
     colormap(tile,ccmap)
