@@ -17,11 +17,11 @@ clf
 set(gcf,'color','w');
 clf
 tiledlayout(2,2,'TileSpacing','compact')
-plot_N_and_B(60,-15,sim);
+plot_N_and_B(60,-40,sim);
 plot_N_and_B(0,-15,sim);
 
 nexttile(1)
-title('Nitrogen ({\mu}g N l^{-1})','fontweight','normal')
+title('Nitrogen ({\mu}M_N)','fontweight','normal')
 set(gca,'xticklabel','')
 plotlabel('a',false);
 
@@ -49,7 +49,7 @@ function plot_N_and_B(lat,lon,sim)
     z = [0; z];
     
     nexttile
-    N = squeeze(double(sim.N(:,idx.x, idx.y, idx.z)))';
+    N = squeeze(double(sim.N(:,idx.x, idx.y, idx.z))/14)';
     N = [N(1,:); N];
     N(N<=0) = 1e-8;
     contourf(sim.t/365,-z,N,logspace(-2,3,20),'LineStyle','none')

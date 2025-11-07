@@ -95,11 +95,11 @@ fig=figure(13);
 [Bactive, Bpassive] = plotGlobalCopepods(sim, bPlot = false);
 
 set(fig,'Renderer','Painters','Units','centimeters',...
-'Position',[x0 y0 16 8],...
+'Position',[x0 y0 8 8],...
 'PaperPositionMode','auto','Name','Group ratios');
 
 clf
-tiledlayout(1,2,'TileSpacing','compact','padding','tight')
+%tiledlayout(1,2,'TileSpacing','compact','padding','tight')
 
 % t5=nexttile(1);
 % cbar=panelGlobal(sim.x, sim.y, mean(sim.Diatomratio(ixTime,:,:),1), sTitle="a. Diatom ratio", sUnits="", sProjection=options.sProjection);
@@ -115,21 +115,21 @@ tiledlayout(1,2,'TileSpacing','compact','padding','tight')
 %         % post5=t5.Position(2);
         
 
- t6=nexttile();
-cbar=panelGlobal(sim.x, sim.y, mean(sim.Diatomratio(ixTime,:,:),1), sTitle="a. Diatom:phytoplankton ratio", sUnits="", sProjection=options.sProjection);
-        cbar.Visible='off';
-        clim([0 1])
-        colormap(t6,ccmap2)
-        cbar=colorbar('horizontal');
-        cbar.Visible='off';
-        set(gca,'YTickLabel',[]);
-        set(gca,'XTickLabel',[]);
-
-t7=nexttile();
+%  t6=nexttile();
+% cbar=panelGlobal(sim.x, sim.y, mean(sim.Diatomratio(ixTime,:,:),1), sTitle="a. Diatom:phytoplankton ratio", sUnits="", sProjection=options.sProjection);
+%         cbar.Visible='off';
+%         clim([0 1])
+%         colormap(t6,ccmap2)
+%         cbar=colorbar('horizontal');
+%         cbar.Visible='off';
+%         set(gca,'YTickLabel',[]);
+%         set(gca,'XTickLabel',[]);
+% 
+% t7=nexttile();
 cbar=panelGlobal(sim.x, sim.y, Bactive./(Bactive+Bpassive), sTitle="b. Active:total copepod ratio", sUnits="", sProjection=options.sProjection);
         cbar.Visible='off';
         clim([0 1])
-        colormap(t7,ccmap2);
+        colormap(gca,ccmap2);
         set(gca,'YTickLabel',[]);
         set(gca,'XTickLabel',[]);
         cbar=colorbar;

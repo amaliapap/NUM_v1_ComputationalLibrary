@@ -14,9 +14,8 @@
 %
 close all
 
-%show_data = true;  % If data are available
 bRunInitialization = false; % Whether to make (long) initialization run
-bRunmodel = false;  % whether to run the model or used saved run
+bRunmodel = false + bRunInitialization;  % whether to run the model or used saved run
 if ~exist('NUMmodel.mat')
     bRunmodel=true;
 end
@@ -95,7 +94,7 @@ plotGlobalNutrients_3D_woa_x_NUM(sim) % Figure 11 & E1 (Appendix)
 figure(11)
 exportgraphics(gcf,'NutrientsNUMxWOAsurf_annual.pdf')
 figure(51)
-exportgraphics(gcf,[append('NutrientsNUMxWOA','_MAPS.pdf')])
+exportgraphics(gcf,[append('woaPO4xNUMdoc_surf_annual.pdf')])
 
 
 %%
@@ -122,7 +121,7 @@ exportgraphics(gcf,'Respiration_simC_noLabels.pdf')
 
 
 %% Appendix figures
-sensitivityCalibrationParams(sim, true) % sensitivity plots for the 3 calibrated params
+sensitivityCalibrationParams(sim, ~bRunInitialization) % sensitivity plots for the 3 calibrated params
 exportgraphics(gcf,'sensitivityCalibrationParams.pdf')
 
 %%
@@ -144,8 +143,8 @@ MyNewPLot_update(sim,24,-158)  % Oligotrophic water-column
 exportgraphics(gcf,'WC_oligotrophic.pdf')
 
 %%
-PlotMicroMesoCopepods(sim)
-exportgraphics(gcf,'MicroMeso_copepods_vCont20_maps.pdf')
+%PlotMicroMesoCopepods(sim)
+%exportgraphics(gcf,'MicroMeso_copepods_vCont20_maps.pdf')
 
 %%
 r = calcRadiusGroups(sim.p);
@@ -157,9 +156,12 @@ figure(7)
 exportgraphics(gcf,'picoPhytoplankton_transects.pdf')
 
 %%
-plotWatercolumnTime(sim, lat, lon, depthMax=200) % or simWC
-annotation('textbox', [0.1, 0.5, 0.5, 0.04], 'String', 'Depth (m)', 'FontSize', 12,'rotation',90,...
-    'edgecolor','none');
+figure
+setFigWidth(10)
+setFigHeight(20)
+plotWatercolumnTime(sim, lat, lon, depthMax=200, bMolarUnits=true) % or simWC
+%annotation('textbox', [0.1, 0.5, 0.5, 0.04], 'String', 'Depth (m)', 'FontSize', 12,'rotation',90,...
+%    'edgecolor','none');
 exportgraphics(gcf,'watercolumn.pdf')
 
 %%

@@ -17,10 +17,10 @@ if exist('../../data/no3_woa_3D_interp.mat')
     load('../../data/si_woa_3D_interp.mat')
     load('../../data/po4_woa_3D_interp.mat')
 
-    % Convertion from umol/kg to ug/l. Top layer in WOA is top 5m
-    no3_woa_surf=14*squeeze(no3_woa_3D_interp(:,:,1));% ugN/l
-    si_woa_surf=28.09*squeeze(si_woa_3D_interp(:,:,1));% ugN/l
-    po4_woa_surf=31*squeeze(po4_woa_3D_interp(:,:,1));% ugN/l
+    % 
+    no3_woa_surf=squeeze(no3_woa_3D_interp(:,:,1));% ugN/l
+    si_woa_surf=squeeze(si_woa_3D_interp(:,:,1));% ugN/l
+    po4_woa_surf=squeeze(po4_woa_3D_interp(:,:,1));% ugN/l
 else
     showData = false;
 end
@@ -59,7 +59,7 @@ if showData==false
     Silim=[-2 4];
 
     t1=nexttile(1);
-    cn = panelGlobal(sim.x,sim.y,log10(NO3),[-2 4],sTitle='a. Modeled N ',sProjection=sProjection);
+    cn = panelGlobal(sim.x,sim.y,log10(NO3/14),[-2 4],sTitle='a. Modeled N ',sProjection=sProjection);
     cn.Visible='off';
     colormap(t1,ccmap);
     cn=colorbar;
@@ -67,7 +67,7 @@ if showData==false
     set(gca,'XTickLabel','')
     cn.Ticks=[-3 -1 1 3];
     cn.TickLabels={'10^{-3}','10^{-1}','10^1','10^3'};
-    ylabel(cn, '\mug N l^{-1}','FontSize',10)
+    ylabel(cn, '{\mu}M_N','FontSize',10)
     % cn.Position(1)=.282;
 
     % Silicate NUM
@@ -82,7 +82,7 @@ if showData==false
     set(gca,'XTickLabel',[]);
     c.Ticks=[-2 0 2 4];
     c.TickLabels={'10^{-2}','10^0','10^2','10^4'};
-    ylabel(c, '\mug Si l^{-1}','FontSize',10)
+    ylabel(c, '{\mu}M_{Si}','FontSize',10)
 else
 
     tiledlayout(2,2,'TileSpacing','compact','padding','tight',TileIndexing='columnmajor')
@@ -102,7 +102,7 @@ else
     % ylabel(c, 'log_{10}(\mug N l^{-1})','FontSize',10)
     % Nitrogen NUM
     t3=nexttile(3);
-    cn = panelGlobal(sim.x,sim.y,log10(NO3),[-2 4],sTitle='b. Modeled N ',sProjection=sProjection);
+    cn = panelGlobal(sim.x,sim.y,log10(NO3/14),[-2 4],sTitle='b. Modeled N ',sProjection=sProjection);
     cn.Visible='off';
     colormap(t3,ccmap);
     cn=colorbar;
@@ -110,7 +110,7 @@ else
     set(gca,'XTickLabel','')
     cn.Ticks=[-3 -1 1 3];
     cn.TickLabels={'10^{-3}','10^{-1}','10^1','10^3'};
-    ylabel(cn, '\mug N l^{-1}','FontSize',10)
+    ylabel(cn, '{\mu}M_N','FontSize',10)
     % cn.Position(1)=.282;
 
     % Si woa
@@ -127,8 +127,8 @@ else
 
     % Silicate NUM
     t4=nexttile(4);
-    c = panelGlobal(sim.x,sim.y,log10(Si),Silim,sTitle='d. Modeled Si',sProjection=sProjection);
-    c.Label.String  = 'log_{10}(\mug Si l^{-1})';
+    c = panelGlobal(sim.x,sim.y,log10(Si/28.8),Silim,sTitle='d. Modeled Si',sProjection=sProjection);
+    c.Label.String  = 'log_{10}({\mu}M_{Si})';
     c.Visible='off';
     colormap(t4,ccmap)
     c=colorbar;
@@ -137,7 +137,7 @@ else
     set(gca,'XTickLabel',[]);
     c.Ticks=[-2 0 2 4];
     c.TickLabels={'10^{-2}','10^0','10^2','10^4'};
-    ylabel(c, '\mug Si l^{-1}','FontSize',10)
+    ylabel(c, '{\mu}M_{Si}','FontSize',10)
     % c.Position(1)=.282;
     % c.Position(2)=.1;
 end
@@ -163,11 +163,11 @@ if showData
     colormap(t1,ccmap10)
     c=colorbar('horizontal');
     clim([-1 3])
-    ylabel(c, 'log_{10}(\mug_P l^{-1})','FontSize',10)
+    ylabel(c, 'log_{10}({\mu}M_P)','FontSize',10)
     % set(colorbar,'visible','off')
     set(gca,'YTickLabel',[]);
     set(gca,'XTickLabel',[]);
-    ylabel(c, 'log_{10}(\mug P l^{-1})','FontSize',10)
+    ylabel(c, 'log_{10}({\mu}M_P)','FontSize',10)
 
     t2=nexttile();
 end

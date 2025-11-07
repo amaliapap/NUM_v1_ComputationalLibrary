@@ -62,13 +62,13 @@ plotlabel('a',false);
 
 nexttile(2)
 for i=1:3
-    plot(mortHTL,exp(objHTL(:,i+3))*NPPexpected(i),'Color',ccmap(i,:),'linewidth',2)
+    plot(mortHTL,(objHTL(:,i+3)),'Color',ccmap(i,:),'linewidth',2)
     hold on
 end
 plot(0.017*[1,1],[0 2000],'k:')
 ylabel('NPP (mg C m^{-2}day^{-1})')
 xlabel('\mu_{HTL,0} (L \mug C^{-1}day^{-1})')
-leg2=legend({'Oligotrophic','Eutrophic','Seasonal'});
+leg2=legend({'Eutrophic','Oligotrophic','Seasonal'});
 leg2.ItemTokenSize(1)=10;
 plotlabel('d',false);
 ylim([0 2000])
@@ -93,7 +93,7 @@ plot(sim.p.kw*[1,1],[-2 2],'k:')
 
 nexttile(4)
 for i=1:3
-    plot(kw,exp(objkw(:,i+3))*NPPexpected(i),'Color',ccmap(i,:),'linewidth',2)
+    plot(kw,(objkw(:,i+3)),'Color',ccmap(i,:),'linewidth',2)
     hold on
 end
 plot(sim.p.kw*[1,1],[0 2000],'k:')
@@ -123,7 +123,7 @@ plot(19*[1,1],[-2 2],'k:')
 
 nexttile(6)
 for i=1:3
-    plot(u,exp(obju(:,i+3))*NPPexpected(i),'Color',ccmap(i,:),'linewidth',2)
+    plot(u,(obju(:,i+3)),'Color',ccmap(i,:),'linewidth',2)
     hold on
 end
 plot(19*[1,1],[0 2000],'k:')
@@ -151,7 +151,7 @@ plotlabel('f',false);
             mortHTL(i)
             setHTL(mortHTL(i), mHTL, bHTLquadratic, bHTLdecline, true);
             simHTL{i} = simulateGlobal(p,sim,bCalcAnnualAverages=true, bVerbose=false);
-            obj(i,:) = EvaluateRun(simHTL{i});
+            obj(i,:) = ModelVsData(simHTL{i});
             err(i) = double(mean(abs(log(obj(i,:) ./ objExpected))));
             drawnow
             %siminit = simHTL{i};
@@ -171,7 +171,7 @@ plotlabel('f',false);
             kw(i)
             p.kw = kw(i);
             sim_kw{i} = simulateGlobal(p,sim,bCalcAnnualAverages=true, bVerbose=false);
-            obj(i,:) = EvaluateRun(sim_kw{i});
+            obj(i,:) = ModelVsData(sim_kw{i});
             err(i) = double(mean(abs(log(obj(i,:) ./ objExpected))));
             drawnow
             %siminit = simHTL{i};
@@ -189,7 +189,7 @@ plotlabel('f',false);
             u(i)
             setSinkingPOM(p,u(i));
             sim_u{i} = simulateGlobal(p,sim,bCalcAnnualAverages=true, bVerbose=true);
-            obj(i,:) = EvaluateRun(sim_u{i});
+            obj(i,:) = ModelVsData(sim_u{i});
             err(i) = double(mean(abs(log(obj(i,:) ./ objExpected))));
             drawnow
         end
