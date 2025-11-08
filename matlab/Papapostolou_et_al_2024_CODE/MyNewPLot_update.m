@@ -32,6 +32,8 @@ set(gca,'XTickLabel',{''})
 
 maxDepth=max(sim.z(idx.z));
 axis square
+axis tight
+ylim([-300 0])
 alabel=plotlabel('a',false);
 % alabel.Position(2)=1.13;
 
