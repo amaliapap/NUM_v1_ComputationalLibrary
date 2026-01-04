@@ -10,6 +10,7 @@ sim = plotGlobalPhytoplankton(sim,bPlot=false);
 ixTime = find(sim.t>(max(sim.t)-365)); % Just do the last year
 Bac_mean = mean(sim.Bbacteria(ixTime,:,:),1)/1000;
 Bphyto_mean = mean(sim.Bphyto(ixTime,:,:),1)/1000;
+Bphyto_mean(Bphyto_mean<0) = 0.001;
 Bzoo_mean = mean(sim.Bzoo(ixTime,:,:),1)/1000;
 
 
