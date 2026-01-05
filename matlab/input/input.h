@@ -190,7 +190,7 @@
 
 ! Vulnerability to predation:
 !----------------------------
-  palatability = 0
+  palatability = 0.25
   
 !***********************************************************************
 ! COPEPODS ACTIVE INPUT PARAMETERS
